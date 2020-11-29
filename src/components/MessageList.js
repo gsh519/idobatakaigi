@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { List } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 
+import MessageItem from './MessageItem';
 import { messagesRef } from '../firebase';
 
 const useStyles = makeStyles({
   root: {
-    gridRow: 1
+    gridRow: 1,
+    width: '100%',
+    overflow: 'auto'
   }
 })
 
@@ -14,7 +18,7 @@ const MessageList = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    messagesRef.orderByKey().limitToLast(3).on('value', (snapshot) => {
+    messagesRef.orderByKey().limitToLast(15).on('value', (snapshot) => {
       const messages = snapshot.val();
       if (messages === null) return;
       const entries = Object.entries(messages)
@@ -26,7 +30,13 @@ const MessageList = () => {
     })
   },[])
 
-  return <div className={classes.root}>MessageList</div>
+  return (
+    <List className={classes.root}>
+      {messages.map(({key, name, text}) => {
+        return <MessageItem key={key} name={name} text={text} >item</MessageItem>
+      })}
+    </List>
+  );
 };
 
 export default MessageList;
