@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MessageList from './MessageList'
-import MessageInputFeild from './MessageInputField'
 import MessageInputField from './MessageInputField';
 
 const useStyles = makeStyles({
