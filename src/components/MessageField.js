@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { TextField } from '@material-ui/core';
-
+import {pushMessage} from '../firebase'
 
 const MessageField = (props) => {
   const {name, setText, text} = props;
@@ -16,6 +16,7 @@ const MessageField = (props) => {
         if (text === "") return;
 
         if (e.key === 'Enter') {
+          pushMessage({ name: 'はむさん', text })
           setText('')
           e.preventDefault();
         }
